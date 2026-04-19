@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<full-backup-content>
-    <!-- Exclude timer state — sessions should reset fresh after a restore -->
-    <exclude domain="sharedpref" path="continuity_engine.xml" />
-    <exclude domain="sharedpref" path="overlay_prefs.xml" />
-</full-backup-content>
