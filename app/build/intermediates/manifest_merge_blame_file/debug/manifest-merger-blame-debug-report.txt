@@ -1,0 +1,199 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.timetracker.app"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <!-- Draw floating overlay on top of all apps -->
+12    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+12-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:5:5-78
+12-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:5:22-75
+13    <!-- Detect which app is in the foreground -->
+14    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+14-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:7:5-9:58
+14-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:7:22-75
+15    <!-- Keep service alive -->
+16    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+16-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:11:5-77
+16-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:11:22-74
+17    <!-- API 34+: foreground service type -->
+18    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+18-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:13:5-87
+18-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:13:22-84
+19    <!-- Restart after reboot -->
+20    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+20-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:15:5-81
+20-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:15:22-78
+21    <!-- Exempt from battery optimization so service isn't killed -->
+22    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+22-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:17:5-95
+22-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:17:22-92
+23
+24    <permission
+24-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+25        android:name="com.timetracker.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+25-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+26        android:protectionLevel="signature" />
+26-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+27
+28    <uses-permission android:name="com.timetracker.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+28-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+28-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+29
+30    <application
+30-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:19:5-65:19
+31        android:allowBackup="true"
+31-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:20:9-35
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.12.0] C:\Users\jerry\.gradle\caches\transforms-3\db3f6b8020888a7f113f2982cc217484\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+33        android:dataExtractionRules="@xml/data_extraction_rules"
+33-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:21:9-65
+34        android:debuggable="true"
+35        android:extractNativeLibs="false"
+36        android:fullBackupContent="@xml/backup_rules"
+36-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:22:9-54
+37        android:icon="@mipmap/ic_launcher"
+37-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:23:9-43
+38        android:label="@string/app_name"
+38-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:24:9-41
+39        android:roundIcon="@mipmap/ic_launcher_round"
+39-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:25:9-54
+40        android:supportsRtl="true"
+40-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:26:9-35
+41        android:testOnly="true"
+42        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" >
+42-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:27:9-68
+43        <activity
+43-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:29:9-36:20
+44            android:name="com.timetracker.app.MainActivity"
+44-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:30:13-41
+45            android:exported="true" >
+45-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:31:13-36
+46            <intent-filter>
+46-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:32:13-35:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:33:17-69
+47-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:33:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:34:17-77
+49-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:34:27-74
+50            </intent-filter>
+51        </activity>
+52
+53        <!--
+54            foregroundServiceType="dataSync" is required on API 34+.
+55            This is the closest standard type for a usage-monitoring service.
+56        -->
+57        <service
+57-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:42:9-45:56
+58            android:name="com.timetracker.app.TimerService"
+58-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:43:13-41
+59            android:exported="false"
+59-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:44:13-37
+60            android:foregroundServiceType="dataSync" />
+60-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:45:13-53
+61
+62        <activity
+62-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:47:9-50:48
+63            android:name="com.timetracker.app.AppPickerActivity"
+63-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:48:13-46
+64            android:exported="false"
+64-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:49:13-37
+65            android:label="Track these apps" />
+65-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:50:13-45
+66        <activity
+66-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:52:9-55:40
+67            android:name="com.timetracker.app.SettingsActivity"
+67-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:53:13-45
+68            android:exported="false"
+68-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:54:13-37
+69            android:label="Settings" />
+69-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:55:13-37
+70
+71        <receiver
+71-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:57:9-63:20
+72            android:name="com.timetracker.app.BootReceiver"
+72-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:58:13-41
+73            android:exported="false" >
+73-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:59:13-37
+74            <intent-filter>
+74-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:60:13-62:29
+75                <action android:name="android.intent.action.BOOT_COMPLETED" />
+75-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:61:17-79
+75-->C:\Users\jerry\Desktop\time-tracker\app\src\main\AndroidManifest.xml:61:25-76
+76            </intent-filter>
+77        </receiver>
+78
+79        <provider
+79-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+80            android:name="androidx.startup.InitializationProvider"
+80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+81            android:authorities="com.timetracker.app.androidx-startup"
+81-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+82            android:exported="false" >
+82-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+83            <meta-data
+83-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+84                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+84-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+85                android:value="androidx.startup" />
+85-->[androidx.emoji2:emoji2:1.2.0] C:\Users\jerry\.gradle\caches\transforms-3\2ae845919254fd1c61ba530851d4711d\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+86            <meta-data
+86-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\jerry\.gradle\caches\transforms-3\ebeb0bbad0da86e0f22c3eb70a97fea9\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+87                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+87-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\jerry\.gradle\caches\transforms-3\ebeb0bbad0da86e0f22c3eb70a97fea9\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+88                android:value="androidx.startup" />
+88-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\jerry\.gradle\caches\transforms-3\ebeb0bbad0da86e0f22c3eb70a97fea9\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+89            <meta-data
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+90                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+91                android:value="androidx.startup" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+92        </provider>
+93
+94        <receiver
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+95            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+96            android:directBootAware="false"
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+97            android:enabled="true"
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+98            android:exported="true"
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+99            android:permission="android.permission.DUMP" >
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+100            <intent-filter>
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+101                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+102            </intent-filter>
+103            <intent-filter>
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+104                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+104-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+104-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+105            </intent-filter>
+106            <intent-filter>
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+107                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+107-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+107-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+108            </intent-filter>
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+110                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+110-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+110-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\jerry\.gradle\caches\transforms-3\78a0a8e2ee6a6f58e479b46914766cb1\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+111            </intent-filter>
+112        </receiver>
+113    </application>
+114
+115</manifest>
