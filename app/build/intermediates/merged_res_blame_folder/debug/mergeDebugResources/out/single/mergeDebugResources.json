@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "com.timetracker.app-debug-31:/drawable_ic_launcher_fg_c.xml.flat",
+        "source": "com.timetracker.app-main-33:/drawable/ic_launcher_fg_c.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.timetracker.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.timetracker.app-main-33:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "com.timetracker.app-debug-31:/drawable_ic_launcher_fg_a.xml.flat",
+        "source": "com.timetracker.app-main-33:/drawable/ic_launcher_fg_a.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-debug-31:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\jerry\\.gradle\\daemon\\8.13\\com.timetracker.app-main-33:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.timetracker.app-debug-31:/drawable_ic_launcher_fg_b.xml.flat",
+        "source": "com.timetracker.app-main-33:/drawable/ic_launcher_fg_b.xml"
+    }
+]

@@ -24,6 +24,9 @@ class TimerService : Service() {
         private const val NOTIFICATION_ID  = 1
         private const val POLL_INTERVAL_MS = 1500L
 
+        /** True while the service is alive — read by MainActivity to show Stop vs Start. */
+        var running = false
+
         fun start(context: Context) {
             context.startForegroundService(Intent(context, TimerService::class.java))
         }
@@ -127,6 +130,7 @@ class TimerService : Service() {
         // skip re-initialisation so the engine's resume-time is not overwritten.
         if (!isRunning) {
             isRunning           = true
+            running             = true
             currentPackage      = getForegroundPackage() ?: "unknown"
             isOnHomeScreen      = currentPackage in homeLauncherPackages
             isCurrentAppTracked = !isOnHomeScreen && allowlist.isTracked(currentPackage)
@@ -140,6 +144,7 @@ class TimerService : Service() {
 
     override fun onDestroy() {
         isRunning = false
+        running   = false
         stopPolling()
         settings.prefs.unregisterOnSharedPreferenceChangeListener(settingsListener)
         unregisterReceiver(screenReceiver)

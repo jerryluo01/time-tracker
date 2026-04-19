@@ -64,6 +64,11 @@ class SettingsManager(context: Context) {
         get() = prefs.getBoolean(KEY_PILL_VERTICAL, false)
         set(v) = prefs.edit().putBoolean(KEY_PILL_VERTICAL, v).apply()
 
+    /** False after the user explicitly taps Stop Tracking; prevents auto-restart on re-open. */
+    var trackingEnabled: Boolean
+        get() = prefs.getBoolean(KEY_TRACKING_ENABLED, true)
+        set(v) = prefs.edit().putBoolean(KEY_TRACKING_ENABLED, v).apply()
+
     companion object {
         const val KEY_MILESTONE_INTERVAL  = "milestone_interval"
         const val KEY_PULSE_COLOR_APP     = "pulse_color_app"
@@ -72,6 +77,7 @@ class SettingsManager(context: Context) {
         const val KEY_PILL_OPACITY        = "pill_opacity"
         const val KEY_TIMER_ORDER_SWAPPED = "timer_order_swapped"
         const val KEY_PILL_VERTICAL       = "pill_vertical"
+        const val KEY_TRACKING_ENABLED    = "tracking_enabled"
 
         /** Palette offered in SettingsActivity for pulse color selection. */
         val PALETTE = listOf(

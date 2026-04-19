@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Option B — Balanced bold
+    Ring radius 22dp (was 26), strokeWidth 9 (~2x current). Solid without being chunky.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="9"
+        android:strokeLineCap="butt"
+        android:pathData="M 43,35 A 22,22 0 1,1 35,43" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 35.7,35.7 L 39.9,36.9 L 41.1,41.1 L 36.9,39.9 Z" />
+
+</vector>

@@ -34,9 +34,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var statusOverlay: ImageView
     private lateinit var statusUsage: ImageView
     private lateinit var statusBattery: ImageView
+    private lateinit var settings: SettingsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        settings = SettingsManager(this)
         setContentView(buildLayout())
     }
 
@@ -49,16 +51,35 @@ class MainActivity : AppCompatActivity() {
         val hasOverlay  = Settings.canDrawOverlays(this)
         val hasUsage    = hasUsageStatsPermission()
         val hasBattery  = isIgnoringBatteryOptimizations()
+        val allGranted  = hasOverlay && hasUsage && hasBattery
 
         setRowState(btnOverlay,  statusOverlay,  hasOverlay)
         setRowState(btnUsage,    statusUsage,    hasUsage)
         setRowState(btnBattery,  statusBattery,  hasBattery)
 
-        btnStart.visibility = if (hasOverlay && hasUsage && hasBattery) View.VISIBLE else View.GONE
+        btnStart.visibility = if (allGranted) View.VISIBLE else View.GONE
 
-        // If service should already be running (all permissions granted), start it
-        if (hasOverlay && hasUsage && hasBattery) {
-            TimerService.start(this)
+        if (allGranted) {
+            if (TimerService.running) {
+                btnStart.text = "Stop Tracking"
+                btnStart.setBackgroundColor(android.graphics.Color.parseColor("#C62828"))
+                btnStart.setOnClickListener {
+                    settings.trackingEnabled = false
+                    TimerService.stop(this)
+                    refreshPermissionState()
+                }
+            } else {
+                btnStart.text = "Start Tracking"
+                btnStart.setBackgroundColor(android.graphics.Color.parseColor("#378ADD"))
+                btnStart.setOnClickListener {
+                    settings.trackingEnabled = true
+                    TimerService.start(this)
+                    finish()
+                }
+                if (settings.trackingEnabled) {
+                    TimerService.start(this)
+                }
+            }
         }
     }
 
@@ -229,10 +250,6 @@ class MainActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = px(32f) }
-            setOnClickListener {
-                TimerService.start(this@MainActivity)
-                finish()
-            }
         }
         root.addView(btnStart)
 
