@@ -50,6 +50,13 @@ Key methods:
 
 **AllowlistManager** stores `Set<String>` of package names ("allowlist"). `isTracked(pkg)` returns `true` when the set is empty (track-everything default) or when `pkg` is in the set.
 
+**AppPickerActivity** — app allowlist picker with live search and refresh:
+- `allApps: List<AppInfo>` — full installed app list, source of truth for both search and refresh
+- `applyFilter(query)` — filters `allApps` by label (case-insensitive), swaps adapter contents via `clear()`/`addAll()`
+- `refreshApps()` — reloads `allApps` off the main thread (`Thread` + `runOnUiThread`), then re-applies current search query; use when apps have been installed/uninstalled
+- Search `EditText` sits between the divider and the `ListView`; "Refresh" button inline with "Select all" / "Clear all"
+- `selectedPackages: MutableSet<String>` is never cleared by filter/refresh — checked state survives both operations
+
 **SettingsManager** (`"settings"` SharedPreferences) holds all user preferences:
 - `milestoneIntervalMin` — nudge interval, read every poll cycle so changes apply immediately
 - `pulseColorApp` / `pulseColorPhone` — ARGB ints, read via lambda at pulse trigger time

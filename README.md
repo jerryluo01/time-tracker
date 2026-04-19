@@ -38,6 +38,8 @@ Both timers run independently. The app timer resets when you switch apps; the ph
 - Open **Choose apps** to pick a specific list (e.g. Instagram, TikTok, YouTube)
 - When an allowlist is active the app timer only runs while one of those apps is in the foreground; the phone timer always runs regardless
 - Switching to an untracked app freezes (but does not reset) the app timer
+- **Search** — filter the app list live by name to find an app quickly
+- **Refresh** — reload the installed app list without leaving the screen (picks up newly installed or uninstalled apps)
 
 ### Customizable settings
 | Setting | Options | Default |

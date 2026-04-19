@@ -5,11 +5,14 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -36,11 +39,14 @@ class AppPickerActivity : AppCompatActivity() {
     private lateinit var allowlist: AllowlistManager
     private lateinit var adapter: AppAdapter
     private val selectedPackages = mutableSetOf<String>()
+    private var allApps: List<AppInfo> = emptyList()
+    private var currentSearchQuery = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         allowlist = AllowlistManager(this)
         selectedPackages.addAll(allowlist.getTrackedPackages())
+        allApps = loadInstalledApps()
 
         setContentView(buildLayout())
     }
@@ -64,6 +70,26 @@ class AppPickerActivity : AppCompatActivity() {
 
     private fun isUserApp(info: ApplicationInfo): Boolean =
         (info.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+
+    private fun applyFilter(query: String) {
+        currentSearchQuery = query
+        val filtered = if (query.isBlank()) allApps
+                       else allApps.filter { it.label.contains(query, ignoreCase = true) }
+        adapter.clear()
+        adapter.addAll(filtered)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun refreshApps() {
+        Thread {
+            val fresh = loadInstalledApps()
+            runOnUiThread {
+                allApps = fresh
+                applyFilter(currentSearchQuery)
+                updateSubtitle()
+            }
+        }.start()
+    }
 
     // ──────────────────────────────────────────────────────────────────────────
     // List adapter
@@ -191,6 +217,7 @@ class AppPickerActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             updateSubtitle()
         })
+        btnRow.addView(smallBtn("Refresh") { refreshApps() })
 
         header.addView(btnRow)
 
@@ -199,9 +226,23 @@ class AppPickerActivity : AppCompatActivity() {
             setBackgroundColor(Color.parseColor("#333333"))
         }
 
+        // Search bar
+        val searchBar = EditText(this).apply {
+            hint = "Search apps…"
+            textSize = 14f
+            setTextColor(Color.WHITE)
+            setHintTextColor(Color.parseColor("#666666"))
+            setBackgroundColor(Color.parseColor("#1E1E1E"))
+            setPadding(px(16f), px(10f), px(16f), px(10f))
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+                override fun afterTextChanged(s: Editable?) { applyFilter(s?.toString() ?: "") }
+            })
+        }
+
         // App list
-        val apps = loadInstalledApps()
-        adapter = AppAdapter(apps)
+        adapter = AppAdapter(allApps)
         val listView = ListView(this).apply {
             this.adapter = this@AppPickerActivity.adapter
             setBackgroundColor(Color.parseColor("#121212"))
@@ -213,6 +254,7 @@ class AppPickerActivity : AppCompatActivity() {
 
         root.addView(header)
         root.addView(divider)
+        root.addView(searchBar)
         root.addView(listView)
         return root
     }
