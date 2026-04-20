@@ -17,10 +17,9 @@ class ContinuityEngine(context: Context) {
         private const val KEY_PHONE_RESUME_TIME  = "phone_resume_time_ms"
         private const val KEY_PHONE_ACTIVE       = "phone_is_active"
 
-        private const val KEY_APP_ACCUMULATED    = "app_accumulated_ms"
+        private const val KEY_APP_CURRENT_PACKAGE = "app_current_package"
         private const val KEY_APP_RESUME_TIME    = "app_resume_time_ms"
         private const val KEY_APP_ACTIVE         = "app_is_active"
-        private const val KEY_APP_LAST_PACKAGE   = "app_last_package"
 
         private const val KEY_LAST_ACTIVE_TIME      = "last_active_timestamp_ms"
         // Separate gap clock for the app timer — can diverge from phone timer
@@ -112,19 +111,35 @@ class ContinuityEngine(context: Context) {
         return if (active) acc + (now - resume) else acc
     }
 
-    private fun resumeAppSession(currentPackage: String, now: Long) {
-        val lastPkg = prefs.getString(KEY_APP_LAST_PACKAGE, null)
-        if (lastPkg != currentPackage) resetAppSession(currentPackage, now)
-        else prefs.edit().putLong(KEY_APP_RESUME_TIME, now).putBoolean(KEY_APP_ACTIVE, true).apply()
+    private fun appAccKey(pkg: String) = "app_acc_$pkg"
+
+    private fun resumeAppSession(pkg: String, now: Long) {
+        snapshotAppSession(now)
+        prefs.edit()
+            .putString(KEY_APP_CURRENT_PACKAGE, pkg)
+            .putLong(KEY_APP_RESUME_TIME, now)
+            .putBoolean(KEY_APP_ACTIVE, true)
+            .apply()
     }
-    private fun resetAppSession(packageName: String, now: Long) {
-        prefs.edit().putLong(KEY_APP_ACCUMULATED, 0L).putLong(KEY_APP_RESUME_TIME, now).putBoolean(KEY_APP_ACTIVE, true).putString(KEY_APP_LAST_PACKAGE, packageName).apply()
+    private fun resetAppSession(pkg: String, now: Long) {
+        snapshotAppSession(now)
+        prefs.edit()
+            .putString(KEY_APP_CURRENT_PACKAGE, pkg)
+            .putLong(appAccKey(pkg), 0L)
+            .putLong(KEY_APP_RESUME_TIME, now)
+            .putBoolean(KEY_APP_ACTIVE, true)
+            .apply()
     }
     private fun snapshotAppSession(now: Long) {
-        prefs.edit().putLong(KEY_APP_ACCUMULATED, liveAppMs(now)).putBoolean(KEY_APP_ACTIVE, false).apply()
+        val pkg = prefs.getString(KEY_APP_CURRENT_PACKAGE, null) ?: return
+        prefs.edit()
+            .putLong(appAccKey(pkg), liveAppMs(now))
+            .putBoolean(KEY_APP_ACTIVE, false)
+            .apply()
     }
     private fun liveAppMs(now: Long): Long {
-        val acc = prefs.getLong(KEY_APP_ACCUMULATED, 0L)
+        val pkg = prefs.getString(KEY_APP_CURRENT_PACKAGE, null) ?: return 0L
+        val acc = prefs.getLong(appAccKey(pkg), 0L)
         val active = prefs.getBoolean(KEY_APP_ACTIVE, false)
         val resume = prefs.getLong(KEY_APP_RESUME_TIME, now)
         return if (active) acc + (now - resume) else acc

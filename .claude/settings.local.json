@@ -4,7 +4,8 @@
       "Bash(./gradlew assembleDebug)",
       "Bash(/c/Users/jerry/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh *)",
       "Bash(xargs cat *)",
-      "Bash(\"/c/Users/jerry/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/stop-server.sh\" \"/c/Users/jerry/Desktop/time-tracker/.superpowers/brainstorm/1877-1776642299\")"
+      "Bash(\"/c/Users/jerry/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/stop-server.sh\" \"/c/Users/jerry/Desktop/time-tracker/.superpowers/brainstorm/1877-1776642299\")",
+      "Bash(gradlew.bat assembleDebug)"
     ]
   }
 }

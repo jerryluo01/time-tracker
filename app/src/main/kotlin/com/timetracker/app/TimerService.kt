@@ -237,7 +237,7 @@ class TimerService : Service() {
         if (!hasUsagePermission()) return null
 
         val now    = System.currentTimeMillis()
-        val events = usageStats.queryEvents(now - 3000L, now)
+        val events = usageStats.queryEvents(now - 10_000L, now)
         val event  = UsageEvents.Event()
         var lastFg: String? = null
 
@@ -247,7 +247,7 @@ class TimerService : Service() {
         }
 
         if (lastFg == null) {
-            lastFg = usageStats.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 5000L, now)
+            lastFg = usageStats.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 15_000L, now)
                 ?.maxByOrNull { it.lastTimeUsed }?.packageName
         }
 
