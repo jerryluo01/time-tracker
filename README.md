@@ -48,9 +48,11 @@ Both timers run independently. The app timer resets when you switch apps; the ph
 | App timer pulse color | 8 swatches (green, blue, cyan, orange, purple, red, pink, white) | Green |
 | Phone timer pulse color | same 8 swatches | Blue |
 | Overlay opacity | Ghost / **Light** / Medium / Solid | Light (28%) |
+| Pill size | Small / **Medium** / Large | Medium |
+| Reset timers after | 1 / 2 / 5 / 10 / **15** / 20 / 30 min away | 15 min |
 | Lock overlay | On / Off | Off |
 
-Changes to interval, colors, and anchor state take effect **immediately**. Opacity changes apply on next service restart.
+All changes take effect **immediately** — opacity, size, and anchor changes rebuild the overlay in place without restarting the service.
 
 ### Persistent notification
 The required foreground service notification doubles as a live timer display visible from the pull-down shade without needing the overlay: `App: 12:34  |  Phone: 1:05:02`

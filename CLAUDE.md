@@ -77,7 +77,12 @@ Key methods:
 
 **PulseOverlay** — creates a fresh `GlowBorderView` on each `trigger()` call (so it picks up the latest color). Two independent instances in `TimerService`; both can fire in the same poll cycle.
 
-**OverlayManager** — anchor mode adds `FLAG_NOT_TOUCHABLE` to `WindowManager.LayoutParams`, making the pill fully click-through. `FLAG_NOT_FOCUSABLE` stays on always. Position saved to `"overlay_prefs"` SharedPreferences, clamped to screen bounds on restore.
+**OverlayManager** — anchor mode adds `FLAG_NOT_TOUCHABLE` to `WindowManager.LayoutParams`, making the pill fully click-through. `FLAG_NOT_FOCUSABLE` stays on always. Position saved to `"overlay_prefs"` SharedPreferences, clamped to screen bounds on restore. `rebuildOverlay()` is triggered instantly for opacity, size, layout, and order changes via `OnSharedPreferenceChangeListener` in `TimerService` — no service restart needed.
+
+**Icon** (`ic_launcher_foreground.xml`) — three layered paths on a black background, all within the 72×72dp adaptive icon safe zone:
+- Full white ring: stroked circle, center (54,54), stroke-r=22.36, stroke-width=7.28 (outer r=26, inner r=18.72)
+- Black cutout: arc-edged quadrilateral masking the gap (outer r=28, inner r=17), centered at 225° (top-left), 30° wide
+- White exploded piece: annular sector displaced 3dp outward along 225°; perfectly symmetric around the 225° axis (corner pairs have x/y coordinates swapped). Do NOT use the Pencil JSON export directly — it introduces an asymmetric offset; recompute from geometry instead.
 
 ### Permissions flow (MainActivity)
 

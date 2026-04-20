@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Minimalist clock icon: white on black.
+    Timer app icon — adaptive icon foreground layer
+    108×108dp canvas, 72×72dp safe zone (18dp margin each side)
 
-    A nearly-complete circle with a 30° gap at the top-left (225° SVG / 10:30 position),
-    and a trapezoidal piece "exploded" outward from the gap — like a pie-chart slice
-    that has been pushed away from the ring.
-
-    Canvas: 108×108dp adaptive foreground. Safe zone: inner 72×72dp (center 54,54).
-    Ring: center (54,54), radius 20dp, strokeWidth 9 → outer edge r=24.5, inner edge r=15.5.
-
-    Gap geometry (30° centred at 225° SVG = NW / top-left):
-      Arc start (CW) → 240° SVG → (44.0, 36.7)
-      Arc end   (CW) → 210° SVG → (36.7, 44.0)
-      Gap spans 210°–240° SVG (both on the top-left)
-
-    Trapezoid = annular sector at the gap, exploded 4dp outward along 225°:
-      Explosion vector: 4 × (cos225°, sin225°) = (-2.83, -2.83)
-      A  outer@210° + offset = (30.0, 38.9)   ← top-left corner (longest edge A→B)
-      B  outer@240° + offset = (38.9, 30.0)   ← top-right corner of piece
-      C  inner@240° + offset = (43.4, 37.8)   ← bottom-right corner
-      D  inner@210° + offset = (37.8, 43.4)   ← bottom-left corner
-      Outer edge A→B is the longest side, positioned at the top-left of the icon.
+    Ring: center (54,54), outer r=34dp, inner r=21.76dp (36% thickness)
+    Gap:  27° centered at 222.5° (≈10:30 on clock face, upper-left)
+          gapStart=209°, gapEnd=236°
+    Wedge exploded 6.12dp outward along 222.5° axis
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -28,17 +14,37 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Clock ring — 330° arc, gap at top-left, radius 20 -->
+    <!-- Black background -->
     <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="9"
-        android:strokeLineCap="butt"
-        android:pathData="M 44.0,36.7 A 20,20 0 1,1 36.7,44.0" />
+        android:fillColor="#000000"
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
 
-    <!-- Exploded trapezoid — annular sector pushed 4dp outward from ring center -->
+    <!--
+        White ring (donut with 27° wedge removed at ~10:30 position)
+        Outer arc: clockwise 333° from gapEnd(236°) → gapStart(209°)
+        Inner arc: counterclockwise 333° from gapStart(209°) → gapEnd(236°)
+    -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M 30.0,38.9 L 38.9,30.0 L 43.4,37.8 L 37.8,43.4 Z" />
+        android:pathData="
+            M 34.99,25.81
+            A 34,34 0 1,1 24.26,37.52
+            L 34.97,43.45
+            A 21.76,21.76 0 1,0 41.83,35.96
+            Z" />
+
+    <!--
+        White exploded wedge — same 27° arc, displaced 6.12dp toward upper-left
+        Outer arc: clockwise 27° from gapStart(209°) → gapEnd(236°)
+        Inner arc: counterclockwise 27° from gapEnd(236°) → gapStart(209°)
+    -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M 19.75,33.38
+            A 34,34 0 0,1 30.48,21.68
+            L 37.32,31.83
+            A 21.76,21.76 0 0,0 30.46,39.32
+            Z" />
 
 </vector>
