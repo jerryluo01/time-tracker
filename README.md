@@ -2,6 +2,9 @@
 
 A native Android app (Kotlin, API 26+) that floats two live session timers over every app on your screen and pulses a glowing border around the screen edge at configurable time milestones — a subtle, ambient nudge to stay mindful of how long you've been on your phone.
 
+
+https://github.com/user-attachments/assets/ede3dc18-e9a2-425d-8f8b-9440014f6141
+
 ---
 
 ## Features
