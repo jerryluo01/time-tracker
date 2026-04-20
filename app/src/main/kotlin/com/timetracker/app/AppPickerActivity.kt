@@ -1,5 +1,6 @@
 package com.timetracker.app
 
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -38,6 +39,7 @@ class AppPickerActivity : AppCompatActivity() {
 
     private lateinit var allowlist: AllowlistManager
     private lateinit var adapter: AppAdapter
+    private lateinit var listView: ListView
     private val selectedPackages = mutableSetOf<String>()
     private var allApps: List<AppInfo> = emptyList()
     private var currentSearchQuery = ""
@@ -62,22 +64,21 @@ class AppPickerActivity : AppCompatActivity() {
 
     private fun loadInstalledApps(): List<AppInfo> {
         val pm = packageManager
+        val launcherPkgs = pm.queryIntentActivities(
+            Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER), 0
+        ).map { it.activityInfo.packageName }.toSet()
         return pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            .filter { isUserApp(it) && it.packageName != packageName }
+            .filter { it.packageName != packageName && it.packageName in launcherPkgs }
             .map { AppInfo(pm.getApplicationLabel(it).toString(), it.packageName, pm.getApplicationIcon(it)) }
             .sortedBy { it.label.lowercase() }
     }
-
-    private fun isUserApp(info: ApplicationInfo): Boolean =
-        (info.flags and ApplicationInfo.FLAG_SYSTEM) == 0
 
     private fun applyFilter(query: String) {
         currentSearchQuery = query
         val filtered = if (query.isBlank()) allApps
                        else allApps.filter { it.label.contains(query, ignoreCase = true) }
-        adapter.clear()
-        adapter.addAll(filtered)
-        adapter.notifyDataSetChanged()
+        adapter = AppAdapter(filtered)
+        listView.adapter = adapter
     }
 
     private fun refreshApps() {
@@ -243,7 +244,7 @@ class AppPickerActivity : AppCompatActivity() {
 
         // App list
         adapter = AppAdapter(allApps)
-        val listView = ListView(this).apply {
+        listView = ListView(this).apply {
             this.adapter = this@AppPickerActivity.adapter
             setBackgroundColor(Color.parseColor("#121212"))
             setDivider(null)

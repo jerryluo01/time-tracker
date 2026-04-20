@@ -2,22 +2,25 @@
 <!--
     Minimalist clock icon: white on black.
 
-    A nearly-complete circle with a 30° gap at the 10:30 position (top-left),
-    and a diamond marker sitting in that gap.
+    A nearly-complete circle with a 30° gap at the top-left (225° SVG / 10:30 position),
+    and a trapezoidal piece "exploded" outward from the gap — like a pie-chart slice
+    that has been pushed away from the ring.
 
     Canvas: 108×108dp adaptive foreground. Safe zone: inner 72×72dp (center 54,54).
-    Circle: center (54,54), radius 22dp.
+    Ring: center (54,54), radius 20dp, strokeWidth 9 → outer edge r=24.5, inner edge r=15.5.
 
-    Gap geometry (30° gap centred at 315° / 10:30):
-      Arc start  → (43.0, 35.0)  at 330° CW from 12 o'clock
-      Gap centre → (38.4, 38.4)  at 315° CW from 12 o'clock
-      Arc end    → (35.0, 43.0)  at 300° CW from 12 o'clock
+    Gap geometry (30° centred at 225° SVG = NW / top-left):
+      Arc start (CW) → 240° SVG → (44.0, 36.7)
+      Arc end   (CW) → 210° SVG → (36.7, 44.0)
+      Gap spans 210°–240° SVG (both on the top-left)
 
-    Diamond geometry (major half 7.0, minor half 3.5):
-      Protrudes ~2.5dp beyond outer edge (26.5dp) and inner edge (17.5dp).
-      Major axis along radial direction center→gap = (-1,-1)/√2.
-      Tips:  top (33.4,33.4)  bottom (43.4,43.4)
-      Waist: right (40.9,35.9)  left (35.9,40.9)
+    Trapezoid = annular sector at the gap, exploded 4dp outward along 225°:
+      Explosion vector: 4 × (cos225°, sin225°) = (-2.83, -2.83)
+      A  outer@210° + offset = (30.0, 38.9)   ← top-left corner (longest edge A→B)
+      B  outer@240° + offset = (38.9, 30.0)   ← top-right corner of piece
+      C  inner@240° + offset = (43.4, 37.8)   ← bottom-right corner
+      D  inner@210° + offset = (37.8, 43.4)   ← bottom-left corner
+      Outer edge A→B is the longest side, positioned at the top-left of the icon.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -25,17 +28,17 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Clock ring — 330° arc, flat ends, gap at top-left -->
+    <!-- Clock ring — 330° arc, gap at top-left, radius 20 -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#FFFFFF"
         android:strokeWidth="9"
         android:strokeLineCap="butt"
-        android:pathData="M 43,35 A 22,22 0 1,1 35,43" />
+        android:pathData="M 44.0,36.7 A 20,20 0 1,1 36.7,44.0" />
 
-    <!-- Diamond marker at the gap -->
+    <!-- Exploded trapezoid — annular sector pushed 4dp outward from ring center -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M 33.4,33.4 L 40.9,35.9 L 43.4,43.4 L 35.9,40.9 Z" />
+        android:pathData="M 30.0,38.9 L 38.9,30.0 L 43.4,37.8 L 37.8,43.4 Z" />
 
 </vector>

@@ -1,0 +1,88 @@
+<h2>Icon spacing options</h2>
+<p class="subtitle">Each option shows the ring + trapezoid with different positioning. The dashed square is the icon safe zone. Pick whichever bottom/side spacing feels most balanced.</p>
+
+<div class="cards">
+
+  <!-- Option A: current centered -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:20px;background:#000;border-radius:8px">
+      <svg width="180" height="180" viewBox="0 0 108 108" style="border-radius:8px">
+        <rect width="108" height="108" fill="#000"/>
+        <!-- safe zone guide -->
+        <rect x="18" y="18" width="72" height="72" fill="none" stroke="#333" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <!-- ring r=20 center (54,54) -->
+        <path fill="none" stroke="#FFF" stroke-width="9" stroke-linecap="butt"
+              d="M 44.0,36.7 A 20,20 0 1,1 36.7,44.0"/>
+        <!-- trapezoid exploded 4dp toward 225° -->
+        <path fill="#FFF"
+              d="M 30.0,38.9 L 38.9,30.0 L 43.4,37.8 L 37.8,43.4 Z"/>
+        <!-- margin ticks: bottom, left, right -->
+        <line x1="29.5" y1="100" x2="78.5" y2="100" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="29.5" y1="97" x2="29.5" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="78.5" y1="97" x2="78.5" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="5"    y1="36.7" x2="5" y2="71.3" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="36.7" x2="8" y2="36.7" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="71.3" x2="8" y2="71.3" stroke="#f90" stroke-width="0.6"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>A — Current (centered)</h3>
+      <p>Ring at (54,54), r=20. Mathematically equal margins on all four sides (~29.5dp each). Blue = bottom span, orange = side span.</p>
+    </div>
+  </div>
+
+  <!-- Option B: shift down 4dp -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:20px;background:#000;border-radius:8px">
+      <svg width="180" height="180" viewBox="0 0 108 108" style="border-radius:8px">
+        <rect width="108" height="108" fill="#000"/>
+        <rect x="18" y="18" width="72" height="72" fill="none" stroke="#333" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <!-- ring r=20 center (54,58) -->
+        <path fill="none" stroke="#FFF" stroke-width="9" stroke-linecap="butt"
+              d="M 45.0,40.7 A 20,20 0 1,1 37.7,48.0"/>
+        <!-- trapezoid at (54,58) exploded -->
+        <path fill="#FFF"
+              d="M 31.0,42.9 L 39.9,34.0 L 44.4,41.8 L 38.8,47.4 Z"/>
+        <!-- margin ticks -->
+        <line x1="29.5" y1="100" x2="82.5" y2="100" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="29.5" y1="97"  x2="29.5" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="82.5" y1="97"  x2="82.5" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="5"    y1="40.7" x2="5"    y2="75.3" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="40.7" x2="8"    y2="40.7" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="75.3" x2="8"    y2="75.3" stroke="#f90" stroke-width="0.6"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>B — Shift down 4dp</h3>
+      <p>Ring center (54,58). Brings the exploded piece into more balanced top space. Bottom margin shrinks to ~25dp while sides stay ~29dp — visually tighter below.</p>
+    </div>
+  </div>
+
+  <!-- Option C: shift down-right to (57,57) -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;padding:20px;background:#000;border-radius:8px">
+      <svg width="180" height="180" viewBox="0 0 108 108" style="border-radius:8px">
+        <rect width="108" height="108" fill="#000"/>
+        <rect x="18" y="18" width="72" height="72" fill="none" stroke="#333" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <!-- ring r=20 center (57,57) -->
+        <path fill="none" stroke="#FFF" stroke-width="9" stroke-linecap="butt"
+              d="M 47.0,39.7 A 20,20 0 1,1 39.7,47.0"/>
+        <!-- trapezoid at (57,57) exploded -->
+        <path fill="#FFF"
+              d="M 33.0,41.9 L 41.9,33.0 L 46.4,40.8 L 40.8,46.4 Z"/>
+        <!-- margin ticks -->
+        <line x1="33.0" y1="100" x2="81.5" y2="100" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="33.0" y1="97"  x2="33.0" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="81.5" y1="97"  x2="81.5" y2="103" stroke="#378ADD" stroke-width="0.6"/>
+        <line x1="5"    y1="39.7" x2="5"    y2="74.3" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="39.7" x2="8"    y2="39.7" stroke="#f90" stroke-width="0.6"/>
+        <line x1="2"    y1="74.3" x2="8"    y2="74.3" stroke="#f90" stroke-width="0.6"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>C — Shift down-right 3dp</h3>
+      <p>Ring center (57,57). Offsets the composition so the trapezoid's top-left extension is balanced by equal right/bottom margins (~26.5dp each side).</p>
+    </div>
+  </div>
+
+</div>

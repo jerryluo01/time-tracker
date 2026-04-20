@@ -51,6 +51,7 @@ Key methods:
 **AllowlistManager** stores `Set<String>` of package names ("allowlist"). `isTracked(pkg)` returns `true` when the set is empty (track-everything default) or when `pkg` is in the set.
 
 **AppPickerActivity** — app allowlist picker with live search and refresh:
+- App list uses `queryIntentActivities(ACTION_MAIN + CATEGORY_LAUNCHER)` to build the visible set — this includes system apps with launcher icons (e.g. Chrome) that `FLAG_SYSTEM` filtering would wrongly exclude. Do NOT filter by `FLAG_SYSTEM`.
 - `allApps: List<AppInfo>` — full installed app list, source of truth for both search and refresh
 - `applyFilter(query)` — filters `allApps` by label (case-insensitive), swaps adapter contents via `clear()`/`addAll()`
 - `refreshApps()` — reloads `allApps` off the main thread (`Thread` + `runOnUiThread`), then re-applies current search query; use when apps have been installed/uninstalled
