@@ -34,3 +34,5 @@ local.properties
 *.iml
 .idea/
 captures/
+
+.superpowers/

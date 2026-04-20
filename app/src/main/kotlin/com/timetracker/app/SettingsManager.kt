@@ -69,6 +69,16 @@ class SettingsManager(context: Context) {
         get() = prefs.getBoolean(KEY_TRACKING_ENABLED, true)
         set(v) = prefs.edit().putBoolean(KEY_TRACKING_ENABLED, v).apply()
 
+    /** Minutes of inactivity before timers reset. Default 15. */
+    var gapThresholdMin: Int
+        get() = prefs.getInt(KEY_GAP_THRESHOLD, 15)
+        set(v) = prefs.edit().putInt(KEY_GAP_THRESHOLD, v).apply()
+
+    /** Pill size as a percentage of the base size. Default 100 (Medium). */
+    var pillSizePct: Int
+        get() = prefs.getInt(KEY_PILL_SIZE, 100)
+        set(v) = prefs.edit().putInt(KEY_PILL_SIZE, v).apply()
+
     companion object {
         const val KEY_MILESTONE_INTERVAL  = "milestone_interval"
         const val KEY_PULSE_COLOR_APP     = "pulse_color_app"
@@ -78,6 +88,8 @@ class SettingsManager(context: Context) {
         const val KEY_TIMER_ORDER_SWAPPED = "timer_order_swapped"
         const val KEY_PILL_VERTICAL       = "pill_vertical"
         const val KEY_TRACKING_ENABLED    = "tracking_enabled"
+        const val KEY_GAP_THRESHOLD       = "gap_threshold_min"
+        const val KEY_PILL_SIZE           = "pill_size_pct"
 
         /** Palette offered in SettingsActivity for pulse color selection. */
         val PALETTE = listOf(
@@ -91,7 +103,9 @@ class SettingsManager(context: Context) {
             "#FFF5F5F5" to "White"
         )
 
-        val MILESTONE_OPTIONS = listOf(5, 10, 15, 20, 30, 45, 60)
-        val OPACITY_OPTIONS   = listOf(15 to "Ghost", 28 to "Light", 45 to "Medium", 65 to "Solid")
+        val MILESTONE_OPTIONS      = listOf(5, 10, 15, 20, 30, 45, 60)
+        val OPACITY_OPTIONS        = listOf(15 to "Ghost", 28 to "Light", 45 to "Medium", 65 to "Solid")
+        val GAP_THRESHOLD_OPTIONS  = listOf(1, 2, 5, 10, 15, 20, 30)
+        val SIZE_OPTIONS           = listOf(75 to "Small", 100 to "Medium", 130 to "Large")
     }
 }

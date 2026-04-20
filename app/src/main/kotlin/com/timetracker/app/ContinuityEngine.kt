@@ -7,9 +7,11 @@ class ContinuityEngine(context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("continuity_engine", Context.MODE_PRIVATE)
+    private val settings = SettingsManager(context)
+
+    private val gapThresholdMs get() = settings.gapThresholdMin * 60_000L
 
     companion object {
-        private const val GAP_THRESHOLD_MS = 15 * 60 * 1000L
 
         private const val KEY_PHONE_ACCUMULATED = "phone_accumulated_ms"
         private const val KEY_PHONE_RESUME_TIME  = "phone_resume_time_ms"
@@ -35,7 +37,7 @@ class ContinuityEngine(context: Context) {
         val lastActive = prefs.getLong(KEY_LAST_ACTIVE_TIME, 0L)
         val gap = if (lastActive > 0) now - lastActive else 0L
 
-        if (gap >= GAP_THRESHOLD_MS) {
+        if (gap >= gapThresholdMs) {
             resetPhoneSession(now)
             if (isAppTracked) resetAppSession(currentPackage, now)
         } else {
@@ -73,7 +75,7 @@ class ContinuityEngine(context: Context) {
     fun resumeAppTimer(pkg: String, now: Long = System.currentTimeMillis()) {
         val lastAppActive = prefs.getLong(KEY_LAST_APP_ACTIVE_TIME, 0L)
         val gap = if (lastAppActive > 0) now - lastAppActive else 0L
-        if (gap >= GAP_THRESHOLD_MS) {
+        if (gap >= gapThresholdMs) {
             resetAppSession(pkg, now)
         } else {
             resumeAppSession(pkg, now)

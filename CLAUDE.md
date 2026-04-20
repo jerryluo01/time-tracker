@@ -41,7 +41,7 @@ UsageStatsManager ──► TimerService  (polls every 1500ms)
 
 ### Key design decisions
 
-**ContinuityEngine** owns all session logic. Gap < threshold → resume; gap ≥ threshold → reset. Both timers use **independent gap clocks**: `KEY_LAST_ACTIVE_TIME` (phone) and `KEY_LAST_APP_ACTIVE_TIME` (app). A detour through an untracked app can reset the app timer without touching the phone timer. Keep `ContinuityEngine` free of Android UI dependencies.
+**ContinuityEngine** owns all session logic. Gap < threshold → resume; gap ≥ threshold → reset. Both timers use **independent gap clocks**: `KEY_LAST_ACTIVE_TIME` (phone) and `KEY_LAST_APP_ACTIVE_TIME` (app). A detour through an untracked app can reset the app timer without touching the phone timer. Keep `ContinuityEngine` free of Android UI dependencies. The gap threshold is read live from `SettingsManager` via `gapThresholdMs` property (not a hardcoded constant).
 
 Key methods:
 - `onResume(pkg, isAppTracked)` — screen-on / service start; always resumes phone timer, conditionally resumes app timer
@@ -62,7 +62,9 @@ Key methods:
 - `milestoneIntervalMin` — nudge interval, read every poll cycle so changes apply immediately
 - `pulseColorApp` / `pulseColorPhone` — ARGB ints, read via lambda at pulse trigger time
 - `isAnchored` — toggled from `SettingsActivity`; `TimerService` listens via `OnSharedPreferenceChangeListener` and calls `overlayManager.setAnchored()` instantly
-- `pillOpacityPercent` — applied when the overlay is built; requires service restart to change
+- `pillOpacityPercent` — triggers `rebuildOverlay()` via `OnSharedPreferenceChangeListener`; changes apply immediately
+- `pillSizePct` — 75/100/130; scales all text sizes and padding in `buildViews()` via `scale = pillSizePct / 100f`; triggers `rebuildOverlay()` on change
+- `gapThresholdMin` — minutes before timers reset; read live in `ContinuityEngine.gapThresholdMs`; options 1–30
 
 **TimerService** is the single coordinator:
 - Dynamic `BroadcastReceiver` for `ACTION_SCREEN_OFF`/`ON` (manifest receivers cannot receive these)

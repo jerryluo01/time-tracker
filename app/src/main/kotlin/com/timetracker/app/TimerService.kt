@@ -70,7 +70,9 @@ class TimerService : Service() {
         when (key) {
             SettingsManager.KEY_IS_ANCHORED         -> overlayManager.setAnchored(settings.isAnchored)
             SettingsManager.KEY_PILL_VERTICAL,
-            SettingsManager.KEY_TIMER_ORDER_SWAPPED -> overlayManager.rebuildOverlay()
+            SettingsManager.KEY_TIMER_ORDER_SWAPPED,
+            SettingsManager.KEY_PILL_OPACITY,
+            SettingsManager.KEY_PILL_SIZE           -> overlayManager.rebuildOverlay()
         }
     }
 

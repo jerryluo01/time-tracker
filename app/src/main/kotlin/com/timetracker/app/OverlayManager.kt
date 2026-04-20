@@ -146,7 +146,8 @@ class OverlayManager(private val context: Context) {
 
     private fun buildViews() {
         val dp = context.resources.displayMetrics.density
-        fun px(v: Float) = (v * dp).toInt()
+        val scale = settings.pillSizePct / 100f
+        fun px(v: Float) = (v * scale * dp).toInt()
 
         // Background: user's chosen opacity over the dark base color
         val alpha = (settings.pillOpacityPercent * 255 / 100).coerceIn(0, 255)
@@ -158,33 +159,33 @@ class OverlayManager(private val context: Context) {
 
         appDot = TextView(context).apply {
             text = "●"
-            textSize = 8f
+            textSize = 8f * scale
             setTextColor(settings.pulseColorApp)
             setPadding(px(3f), 0, px(4f), 0)
         }
 
         appTimerText = TextView(context).apply {
             text = "0:00"
-            textSize = 13f
+            textSize = 13f * scale
             setTextColor(Color.WHITE)
         }
 
         val divider = TextView(context).apply {
             text = " | "
-            textSize = 12f
+            textSize = 12f * scale
             setTextColor(Color.parseColor("#66FFFFFF"))
         }
 
         phoneDot = TextView(context).apply {
             text = "●"
-            textSize = 8f
+            textSize = 8f * scale
             setTextColor(settings.pulseColorPhone)
             setPadding(px(3f), 0, px(4f), 0)
         }
 
         phoneTimerText = TextView(context).apply {
             text = "0:00"
-            textSize = 13f
+            textSize = 13f * scale
             setTextColor(Color.WHITE)
         }
 

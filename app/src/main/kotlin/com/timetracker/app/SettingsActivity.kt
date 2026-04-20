@@ -96,7 +96,6 @@ class SettingsActivity : AppCompatActivity() {
 
         // ── Overlay opacity ─────────────────────────────────────────────────
         root.addView(sectionLabel("Overlay opacity"))
-        root.addView(hint("Restart the service after changing for this to take effect"))
         root.addView(chipRow(
             options = SettingsManager.OPACITY_OPTIONS.map { it.second },
             selected = SettingsManager.OPACITY_OPTIONS
@@ -105,6 +104,31 @@ class SettingsActivity : AppCompatActivity() {
                 settings.pillOpacityPercent =
                     SettingsManager.OPACITY_OPTIONS.first { it.second == label }.first
             }
+        ))
+
+        root.addView(spacer(px(24f)))
+
+        // ── Pill size ────────────────────────────────────────────────────────
+        root.addView(sectionLabel("Pill size"))
+        root.addView(chipRow(
+            options = SettingsManager.SIZE_OPTIONS.map { it.second },
+            selected = SettingsManager.SIZE_OPTIONS
+                .minByOrNull { Math.abs(it.first - settings.pillSizePct) }!!.second,
+            onSelect = { label ->
+                settings.pillSizePct =
+                    SettingsManager.SIZE_OPTIONS.first { it.second == label }.first
+            }
+        ))
+
+        root.addView(spacer(px(24f)))
+
+        // ── Reset threshold ──────────────────────────────────────────────────
+        root.addView(sectionLabel("Reset timers after … minutes away"))
+        root.addView(hint("If the screen is off longer than this, both timers reset to zero"))
+        root.addView(chipRow(
+            options = SettingsManager.GAP_THRESHOLD_OPTIONS.map { it.toString() },
+            selected = settings.gapThresholdMin.toString(),
+            onSelect = { settings.gapThresholdMin = it.toInt() }
         ))
 
         root.addView(spacer(px(24f)))
