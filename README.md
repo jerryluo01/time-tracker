@@ -1,6 +1,9 @@
 # Time Tracker
 
-A native Android app (Kotlin, API 26+) that floats two live session timers over every app on your screen and pulses a glowing border around the screen edge at configurable time milestones — a subtle, ambient nudge to stay mindful of how long you've been on your phone.
+A native Android app (Kotlin, API 26+) that floats two live session timers over every app on your screen and pulses a glowing border around the screen edge at configurable time milestones a subtle, ambient nudge to stay mindful of how long you've been on your phone.
+
+
+https://github.com/user-attachments/assets/ede3dc18-e9a2-425d-8f8b-9440014f6141
 
 ---
 
@@ -21,8 +24,8 @@ Both timers run independently. The app timer resets when you switch apps; the ph
 
 ### Floating pill overlay
 - Small semi-transparent pill showing `● app_time | ● phone_time` floating on top of all apps
-- Draggable — position saved and restored across reboots
-- **Anchor mode** — lock the position so it can't be moved accidentally; when anchored the pill is fully **click-through** (all taps pass straight to the app behind it)
+- Draggable position saved and restored across reboots
+- **Anchor mode** lock the position so it can't be moved accidentally; when anchored the pill is fully **click-through** (all taps pass straight to the app behind it)
 - Opacity: Ghost (15%) / Light (28%) / Medium (45%) / Solid (65%)
 - Dot colors match your chosen pulse colors and update live
 
@@ -38,8 +41,8 @@ Both timers run independently. The app timer resets when you switch apps; the ph
 - Open **Choose apps** to pick a specific list (e.g. Instagram, TikTok, YouTube)
 - When an allowlist is active the app timer only runs while one of those apps is in the foreground; the phone timer always runs regardless
 - Switching to an untracked app freezes (but does not reset) the app timer
-- **Search** — filter the app list live by name to find an app quickly
-- **Refresh** — reload the installed app list without leaving the screen (picks up newly installed or uninstalled apps)
+- **Search** filter the app list live by name to find an app quickly
+- **Refresh** reload the installed app list without leaving the screen (picks up newly installed or uninstalled apps)
 
 ### Customizable settings
 | Setting | Options | Default |
@@ -67,22 +70,22 @@ The required foreground service notification doubles as a live timer display vis
 ### Requirements
 - Android Studio (Hedgehog 2023.1.1 or newer)
 - Android SDK with `compileSdk 35`, `minSdk 26`
-- A physical Android 8.0+ device — overlay permissions cannot be granted on emulators
+- A physical Android 8.0+ device overlay permissions cannot be granted on emulators
 
-### 1 — Clone and open
+### 1 Clone and open
 ```bash
 git clone <repo-url>
 ```
 Open Android Studio → **Open** → select the `time-tracker` folder. Wait for Gradle sync to complete.
 
-### 2 — Generate the Gradle wrapper (first time only)
+### 2 Generate the Gradle wrapper (first time only)
 If you see a `gradle-wrapper.jar` missing error, run once inside the project directory:
 ```bash
 gradle wrapper --gradle-version 8.4
 ```
 Or in Android Studio: **Tools → Gradle → Generate Gradle Wrapper**.
 
-### 3 — Build
+### 3 Build
 ```bash
 # Windows
 gradlew.bat assembleDebug
@@ -91,16 +94,16 @@ gradlew.bat assembleDebug
 ./gradlew assembleDebug
 ```
 
-### 4 — Enable Developer Options on your phone
+### 4 Enable Developer Options on your phone
 **Settings → About phone → tap Build number 7 times**, then enable **USB debugging** under **Settings → System → Developer options**.
 
-### 5 — Install
+### 5 Install
 ```bash
 adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 Or press **Run ▶** in Android Studio with your phone connected via USB.
 
-### 6 — Grant permissions (one-time walkthrough)
+### 6 Grant permissions (one-time walkthrough)
 The app guides you through three permissions on first launch:
 
 | Permission | Why |
@@ -117,7 +120,7 @@ Tap **Grant** for each → toggle it on in the system page that opens → naviga
 
 1. **Launch** the app and grant all three permissions, then tap **Start Tracking**.
 2. The floating pill appears. **Drag it** to wherever you want it on screen.
-3. Use your phone normally — both timers count up live.
+3. Use your phone normally both timers count up live.
 4. At each milestone (default 15 min) a colored glow pulses around the screen edges.
 5. To customize: tap the notification → **Settings** button on the main screen.
 6. To lock the pill in place: **Settings → Lock overlay**. All taps will pass through it.
@@ -141,10 +144,10 @@ UsageStatsManager ──► TimerService  (polls every 1500ms)
 ```
 
 Key design points:
-- **Phone timer** only reacts to screen on/off — app switches never affect it
+- **Phone timer** only reacts to screen on/off app switches never affect it
 - **App timer** uses its own gap clock (`KEY_LAST_APP_ACTIVE_TIME`) independent of the phone timer's, so a detour through an untracked app can reset the app timer without touching the phone timer
-- **Anchor mode** adds `FLAG_NOT_TOUCHABLE` to the overlay window — applied instantly via `SharedPreferences.OnSharedPreferenceChangeListener` in `TimerService`
-- **Pulse colors** are lambdas — the current color is read at the moment a milestone fires, so color changes in Settings take effect on the next pulse without restarting anything
+- **Anchor mode** adds `FLAG_NOT_TOUCHABLE` to the overlay window applied instantly via `SharedPreferences.OnSharedPreferenceChangeListener` in `TimerService`
+- **Pulse colors** are lambdas the current color is read at the moment a milestone fires, so color changes in Settings take effect on the next pulse without restarting anything
 - `START_STICKY` on the service + `BootReceiver` ensure the service survives both process death and device reboot
 
 ---
@@ -156,7 +159,7 @@ app/src/main/kotlin/com/timetracker/app/
 ├── ContinuityEngine.kt     gap/resume/reset logic for both timer clocks
 ├── AllowlistManager.kt     user's tracked-app selection
 ├── SettingsManager.kt      nudge interval, pulse colors, anchor, opacity
-├── TimerService.kt         foreground service — coordinates everything
+├── TimerService.kt         foreground service coordinates everything
 ├── OverlayManager.kt       draggable pill, anchor/click-through support
 ├── PulseOverlay.kt         animated screen-edge glow with dynamic color
 ├── MainActivity.kt         permission walkthrough + service launch
