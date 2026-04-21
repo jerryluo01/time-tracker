@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 btnStart.setBackgroundColor(android.graphics.Color.parseColor("#C62828"))
                 btnStart.setOnClickListener {
                     settings.trackingEnabled = false
+                    TimerService.running = false
                     TimerService.stop(this)
                     refreshPermissionState()
                 }

@@ -66,7 +66,7 @@ class SettingsManager(context: Context) {
 
     /** False after the user explicitly taps Stop Tracking; prevents auto-restart on re-open. */
     var trackingEnabled: Boolean
-        get() = prefs.getBoolean(KEY_TRACKING_ENABLED, true)
+        get() = prefs.getBoolean(KEY_TRACKING_ENABLED, false)
         set(v) = prefs.edit().putBoolean(KEY_TRACKING_ENABLED, v).apply()
 
     /** Minutes of inactivity before timers reset. Default 15. */

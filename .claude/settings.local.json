@@ -5,7 +5,10 @@
       "Bash(/c/Users/jerry/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh *)",
       "Bash(xargs cat *)",
       "Bash(\"/c/Users/jerry/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/stop-server.sh\" \"/c/Users/jerry/Desktop/time-tracker/.superpowers/brainstorm/1877-1776642299\")",
-      "Bash(gradlew.bat assembleDebug)"
+      "Bash(gradlew.bat assembleDebug)",
+      "Bash(cmd.exe /c \"gradlew.bat assembleDebug 2>&1\")",
+      "PowerShell(Get-Command *)",
+      "PowerShell($env:JAVA_HOME = \"C:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\"; $env:PATH = \"$env:JAVA_HOME\\\\bin;$env:PATH\"; cd \"C:\\\\Users\\\\jerry\\\\Desktop\\\\time-tracker\"; .\\\\gradlew.bat assembleDebug 2>&1 | Select-Object -Last 15)"
     ]
   }
 }

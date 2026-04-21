@@ -56,6 +56,10 @@ class TimerService : Service() {
     private var lastPhoneMinFired = -1L
     private var lastAppMinFired   = -1L
 
+    // Debounce package switches: only commit a switch after seeing the same new
+    // package in two consecutive polls, filtering out transient system overlays.
+    private var pendingPkg: String? = null
+
     // Cached set of home-launcher package names (rarely changes after first query)
     private val homeLauncherPackages: Set<String> by lazy {
         packageManager.queryIntentActivities(
@@ -182,11 +186,16 @@ class TimerService : Service() {
     private fun poll() {
         val now = System.currentTimeMillis()
 
-        // Detect foreground app — only touch the app timer, never the phone timer
+        // Detect foreground app — only touch the app timer, never the phone timer.
+        // Require two consecutive polls with the same new package before committing
+        // the switch, so transient system overlays (e.g. volume panel) are ignored.
         val newPkg = getForegroundPackage()
-        if (newPkg != null && newPkg != currentPackage) {
+        val switched = newPkg != null && newPkg != currentPackage && newPkg == pendingPkg
+        pendingPkg = if (newPkg != null && newPkg != currentPackage) newPkg else null
+
+        if (switched) {
             val wasTracked      = isCurrentAppTracked
-            currentPackage      = newPkg
+            currentPackage      = newPkg!!
             isOnHomeScreen      = currentPackage in homeLauncherPackages
             // Home screen is always treated as untracked regardless of allowlist
             isCurrentAppTracked = !isOnHomeScreen && allowlist.isTracked(currentPackage)

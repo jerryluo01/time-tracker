@@ -51,10 +51,14 @@ class ContinuityEngine(context: Context) {
     fun onPause(now: Long = System.currentTimeMillis()) {
         snapshotPhoneSession(now)
         snapshotAppSession(now)
-        prefs.edit()
-            .putLong(KEY_LAST_ACTIVE_TIME, now)
-            .putLong(KEY_LAST_APP_ACTIVE_TIME, now)
-            .apply()
+        // Only advance the app-timer gap clock if the app timer is active.
+        // If already paused (user is in an untracked app), preserving the earlier
+        // timestamp ensures resumeAppTimer() sees the true gap since the tracked app.
+        val edit = prefs.edit().putLong(KEY_LAST_ACTIVE_TIME, now)
+        if (prefs.getBoolean(KEY_APP_ACTIVE, false)) {
+            edit.putLong(KEY_LAST_APP_ACTIVE_TIME, now)
+        }
+        edit.apply()
     }
 
     /**
