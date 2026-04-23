@@ -78,7 +78,11 @@ class ContinuityEngine(context: Context) {
     fun resumeAppTimer(pkg: String, now: Long = System.currentTimeMillis()) {
         val lastAppActive = prefs.getLong(KEY_LAST_APP_ACTIVE_TIME, 0L)
         val gap = if (lastAppActive > 0) now - lastAppActive else 0L
-        if (gap >= gapThresholdMs) {
+        val lastPkg = prefs.getString(KEY_APP_CURRENT_PACKAGE, null)
+        // Only reset on gap if returning to a DIFFERENT package. Returning to the same
+        // app (e.g. Instagram → Chrome Custom Tab → Instagram) always resumes, because
+        // a detour through an untracked package doesn't mean the user left the tracked app.
+        if (gap >= gapThresholdMs && pkg != lastPkg) {
             resetAppSession(pkg, now)
         } else {
             resumeAppSession(pkg, now)

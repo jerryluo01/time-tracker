@@ -15,11 +15,11 @@ https://github.com/user-attachments/assets/ede3dc18-e9a2-425d-8f8b-9440014f6141
 | **App session** | How long you've been in the current foreground app continuously |
 | **Phone session** | Total continuous phone-on time, regardless of which app you're in |
 
-Both timers run independently. The app timer resets when you switch apps; the phone timer only resets after the screen has been off for 15+ minutes (configurable).
+Both timers run independently. The app timer pauses when you leave a tracked app; the phone timer only resets after the screen has been off for the gap threshold duration (default 15 min, configurable).
 
 ### Continuity rule
 - **Gap < threshold** → timer **resumes** from where it left off (idle time is not counted)
-- **Gap ≥ threshold** → timer **resets** to zero
+- **Gap ≥ threshold** → timer **resets** to zero (only when switching to a *different* app — returning to the same app always resumes regardless of gap)
 - Default threshold: 15 minutes. Configurable in Settings.
 
 ### Floating pill overlay
@@ -145,7 +145,7 @@ UsageStatsManager ──► TimerService  (polls every 1500ms)
 
 Key design points:
 - **Phone timer** only reacts to screen on/off app switches never affect it
-- **App timer** uses its own gap clock (`KEY_LAST_APP_ACTIVE_TIME`) independent of the phone timer's, so a detour through an untracked app can reset the app timer without touching the phone timer
+- **App timer** uses its own gap clock (`KEY_LAST_APP_ACTIVE_TIME`) independent of the phone timer's. A detour through an untracked app pauses the app timer but only resets it if you return to a *different* tracked app after the gap threshold — returning to the same app always resumes
 - **Anchor mode** adds `FLAG_NOT_TOUCHABLE` to the overlay window applied instantly via `SharedPreferences.OnSharedPreferenceChangeListener` in `TimerService`
 - **Pulse colors** are lambdas the current color is read at the moment a milestone fires, so color changes in Settings take effect on the next pulse without restarting anything
 - `START_STICKY` on the service + `BootReceiver` ensure the service survives both process death and device reboot

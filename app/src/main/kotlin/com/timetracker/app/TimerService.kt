@@ -60,6 +60,11 @@ class TimerService : Service() {
     // package in two consecutive polls, filtering out transient system overlays.
     private var pendingPkg: String? = null
 
+    // Grace window: keep showing the app timer for ~8 s after leaving a tracked app,
+    // so brief Custom Tab / system overlay flickers don't flash "-" to the user.
+    private var lastTrackedAt = 0L
+    private val SHOW_APP_GRACE_MS = 8_000L
+
     // Cached set of home-launcher package names (rarely changes after first query)
     private val homeLauncherPackages: Set<String> by lazy {
         packageManager.queryIntentActivities(
@@ -228,8 +233,13 @@ class TimerService : Service() {
         }
         if (appMin % interval != 0L) lastAppMinFired = -1L
 
-        // Show app timer only when on a tracked app (not home screen, not untracked)
-        val showApp = !isOnHomeScreen && (isCurrentAppTracked || allowlist.isEmpty())
+        if (isCurrentAppTracked) lastTrackedAt = now
+        if (isOnHomeScreen) lastTrackedAt = 0L
+
+        // Show app timer on tracked apps, or within the grace window after leaving one,
+        // so transient Custom Tab / overlay flickers don't flash "-" momentarily.
+        val inGrace = lastTrackedAt > 0L && now - lastTrackedAt < SHOW_APP_GRACE_MS
+        val showApp = !isOnHomeScreen && (isCurrentAppTracked || allowlist.isEmpty() || inGrace)
         overlayManager.update(times, showAppTimer = showApp)
 
         val appDisplay = if (showApp) times.appFormatted else "–"
@@ -256,8 +266,15 @@ class TimerService : Service() {
         }
 
         if (lastFg == null) {
-            lastFg = usageStats.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 15_000L, now)
-                ?.maxByOrNull { it.lastTimeUsed }?.packageName
+            // Only use the stale queryUsageStats fallback on cold start (no confirmed package yet).
+            // Once we have a real package, no MOVE_TO_FOREGROUND events just means the same app
+            // is still in the foreground — not a signal to query background-tainted timestamps.
+            lastFg = if (currentPackage == "unknown") {
+                usageStats.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 15_000L, now)
+                    ?.maxByOrNull { it.lastTimeUsed }?.packageName
+            } else {
+                currentPackage
+            }
         }
 
         return lastFg

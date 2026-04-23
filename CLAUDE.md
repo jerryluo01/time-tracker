@@ -46,7 +46,7 @@ UsageStatsManager ──► TimerService  (polls every 1500ms)
 Key methods:
 - `onResume(pkg, isAppTracked)` — screen-on / service start; always resumes phone timer, conditionally resumes app timer
 - `pauseAppTimer()` — on switch to untracked app; phone timer unaffected
-- `resumeAppTimer(pkg)` — on return to tracked app; uses `KEY_LAST_APP_ACTIVE_TIME` for gap check
+- `resumeAppTimer(pkg)` — on return to tracked app; uses `KEY_LAST_APP_ACTIVE_TIME` for gap check. **Only resets if gap ≥ threshold AND `pkg != KEY_APP_CURRENT_PACKAGE`** — returning to the same app always resumes regardless of gap, because `KEY_APP_CURRENT_PACKAGE` is never updated by `pauseAppTimer`, so a detour through an untracked app leaves it pointing at the last tracked app.
 
 **AllowlistManager** stores `Set<String>` of package names ("allowlist"). `isTracked(pkg)` returns `true` when the set is empty (track-everything default) or when `pkg` is in the set.
 
@@ -70,8 +70,9 @@ Key methods:
 - Dynamic `BroadcastReceiver` for `ACTION_SCREEN_OFF`/`ON` (manifest receivers cannot receive these)
 - `OnSharedPreferenceChangeListener` on `SettingsManager.prefs` for instant anchor changes
 - `PulseOverlay` instances receive color as `() -> Int` lambdas, not fixed values — colors update on the next milestone without restarting
+- `lastTrackedAt` / `SHOW_APP_GRACE_MS` (8 s) — app timer display stays visible for 8 s after leaving a tracked app, so brief transient package detections don't flash "-" on the overlay
 
-**Foreground app detection** — `UsageStatsManager.queryEvents(now-3000, now)` for latest `MOVE_TO_FOREGROUND` event, falls back to `queryUsageStats`. Do not use `queryUsageStats` alone — it is stale for live tracking.
+**Foreground app detection** — `UsageStatsManager.queryEvents(now-10000, now)` for latest `MOVE_TO_FOREGROUND` event. Fallback: **only on cold start** (`currentPackage == "unknown"`) use `queryUsageStats` to bootstrap the first package. Once a package is confirmed, absence of new `MOVE_TO_FOREGROUND` events means the same app is still in the foreground — do NOT fall back to `queryUsageStats` in this case, as its `lastTimeUsed` timestamps are updated by background activity and will return the wrong package (e.g. Chrome pre-fetching while Instagram is on screen).
 
 **Milestone detection** — fire-once guards (`lastPhoneMinFired`, `lastAppMinFired`). Fires when `min % interval == 0 && min != lastFired`. Guards reset to `-1` when not on a boundary. `interval` is read from `SettingsManager` each poll. Do not use a time-window approach.
 
